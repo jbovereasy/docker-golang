@@ -1,5 +1,15 @@
 FROM golang:1.8
 
+
+
+WORKDIR /go/src/app
+COPY . .
+
+# Install go
+RUN go get -d -v ./...
+RUN go install -v ./...
+
+
 # update the repository sources list
 # and install dependencies
 RUN apt-get update \
@@ -29,13 +39,6 @@ RUN apt-get update \
   && npm install serverless -g \
   && apt-get update
 
-
-WORKDIR /go/src/app
-COPY . .
-
-# Install go
-RUN go get -d -v ./...
-RUN go install -v ./...
 
 # Expose port 80
 EXPOSE 80
