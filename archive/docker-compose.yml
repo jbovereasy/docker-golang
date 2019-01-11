@@ -3,7 +3,7 @@ services:
   app:
     image: "jsb13207/my-golang-app:latest"
     ports:
-      - "8080:80"
+      - "3000:3000"
     volumes:
       - "./src:/go/src/"
     working_dir: /go/src/${PROJECT_NAME}/
