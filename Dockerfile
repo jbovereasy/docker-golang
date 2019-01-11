@@ -1,18 +1,16 @@
 FROM golang:1.9.2-alpine3.8 AS build
 
-# Install tools required for app
-# Run `docker build --no-cache .` to update dependencies
 WORKDIR /go/src/app/
 COPY . .
 
+# Install git and cmd depedencies
 RUN apk add --no-cache git
 RUN go get github.com/golang/dep/cmd/dep
 
-# Install dependencies and update
+# Install dev stacks
 RUN apk update && apk add \
-    -- update nodejs nodejs-npm \
+    # -- update nodejs nodejs-npm \
     curl \
-    git \
     vim \
     wget \
     && rm -rf /var/lib/apt/lists/*
