@@ -1,7 +1,5 @@
 FROM golang:1.8
 
-
-
 WORKDIR /go/src/app
 COPY . .
 
@@ -9,39 +7,28 @@ COPY . .
 RUN go get -d -v ./...
 RUN go install -v ./...
 
+# Install dependencies
+RUN apt-get update && apt-get install -yq --no-install-recommends \
+    curl \
+    git \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    nano \
+    unzip \
+    vim \
+    wget \
+    && rm -rf /var/lib/apt/lists/* \
+    # Install composer and NVM
+    && curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash \
+    #Install node
+    && curl -sL https://deb.nodesource.com/setup_11.x | sudo bash - \
+    && apt-get install -y nodejs \
+    && apt-get install -y build-essential \
+    # Install npm packages
+    && nvm install --lts \
+    && npm install -g yarn \
+    && npm install serverless -g \
+    && apt-get update
 
-# update the repository sources list
-# and install dependencies
-RUN apt-get update \
-  && apt-get install -y curl \
-  && apt-get -y autoclean \
-
-  # Install dev stack
-  && apt-get install -y \
-  git \
-  libcurl4-openssl-dev \
-  libssl-dev \
-  unzip \
-  vim \
-  wget \
-
-  # Install composer and VNM
-  && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-  && curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash \
-
-  #Install node
-  && curl -sL https://deb.nodesource.com/setup_11.x | bash - \
-  && apt-get install -y nodejs \
-
-  # Install npm packages
-  && nvm install --lts \
-  && npm install -g yarn \
-  && npm install serverless -g \
-  && apt-get update
-
-
-# Expose port 80
-EXPOSE 80
-
+EXPOSE  8080
 CMD ["app"]
-

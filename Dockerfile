@@ -1,34 +1,20 @@
-FROM golang:1.8
+FROM golang:1.9.2-alpine3.8 AS build
 
-WORKDIR /go/src/app
+# Install tools required for app
+# Run `docker build --no-cache .` to update dependencies
+WORKDIR /go/src/app/
 COPY . .
 
-# Install go
-RUN go get -d -v ./...
-RUN go install -v ./...
+RUN apk add --no-cache git
+RUN go get github.com/golang/dep/cmd/dep
 
-# Install dependencies
-RUN apt-get update && apt-get install -yq --no-install-recommends \
+# Install dependencies and update
+RUN apk update && apk add \
+    -- update nodejs nodejs-npm \
     curl \
     git \
-    libcurl4-openssl-dev \
-    libssl-dev \
-    nano \
-    unzip \
     vim \
     wget \
-    && rm -rf /var/lib/apt/lists/* \
-    # Install composer and NVM
-    && curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash \
-    #Install node
-    && curl -sL https://deb.nodesource.com/setup_11.x | sudo bash - \
-    && apt-get install -y nodejs \
-    && apt-get install -y build-essential \
-    # Install npm packages
-    && nvm install --lts \
-    && npm install -g yarn \
-    && npm install serverless -g \
-    && apt-get update
+    && rm -rf /var/lib/apt/lists/*
 
-EXPOSE  8080
 CMD ["app"]
