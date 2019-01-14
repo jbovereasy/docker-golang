@@ -3,6 +3,10 @@ FROM golang:1.9.2-alpine3.6 AS build
 WORKDIR /go/src/app/
 COPY . .
 
+# 
+RUN go get -d -v ./...
+RUN go install -v ./...
+
 # Install git and cmd depedencies
 RUN apk add --no-cache git
 RUN go get github.com/golang/dep/cmd/dep
