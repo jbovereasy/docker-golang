@@ -10,7 +10,7 @@ func main() {
   PORT = "3001"
  }
  http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-  fmt.Fprintf(w, "Hello World from path: %s\n", r.URL.Path)
+  fmt.Fprintf(w, "Hello World from path tesxt: %s\n", r.URL.Path)
  })
  http.ListenAndServe(":" + PORT, nil)
 }
