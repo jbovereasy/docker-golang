@@ -8,6 +8,6 @@ services:
       - ./src:/go/src/app
     working_dir: /go/src/app
     ports:
-      - "3030:3000"
+      - "3030:3001"
     environment:
       PORT: 3001
