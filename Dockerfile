@@ -1,4 +1,5 @@
 FROM golang:alpine
+LABEL MAINTAINER John Baltazar <jsb13207@my.csun.edu>
 
 # Install git and cmd depedencies
 RUN apk add --no-cache git
