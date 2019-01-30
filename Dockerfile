@@ -1,11 +1,4 @@
-FROM golang:1.9.2-alpine3.6 AS build
-
-WORKDIR /go/src/app/
-COPY . .
-
-# 
-RUN go get -d -v ./...
-RUN go install -v ./...
+FROM golang:alpine
 
 # Install git and cmd depedencies
 RUN apk add --no-cache git
@@ -19,4 +12,12 @@ RUN apk update && apk add \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
-CMD ["app"]
+#Go path
+ADD ./src /go/src/app
+WORKDIR /go/src/app
+
+#Set environment var
+ENV PORT=3001
+
+#Command to run app
+CMD ["go", "run", "main.go"]
