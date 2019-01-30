@@ -17,7 +17,7 @@ RUN apk update && apk add \
 ADD ./src /go/src/app
 WORKDIR /go/src/app
 
-# Set port
+# Set environment var
 ENV PORT=3001
 
 # Command to run app
