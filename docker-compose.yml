@@ -1,7 +1,7 @@
 version: "2"
 services:
   my-golang-app-run:
-    container_name: my-golang-app-run
+    container_name: my-golang-app
     build: .
     command: go run main.go
     volumes:

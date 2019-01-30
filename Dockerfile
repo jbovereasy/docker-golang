@@ -13,12 +13,12 @@ RUN apk update && apk add \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
-#Go path
+# Set Go path
 ADD ./src /go/src/app
 WORKDIR /go/src/app
 
-#Set environment var
+# Set port
 ENV PORT=3001
 
-#Command to run app
+# Command to run app
 CMD ["go", "run", "main.go"]
