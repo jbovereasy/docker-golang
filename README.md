@@ -6,6 +6,7 @@ https://cloud.docker.com/u/jsb13207/repository/docker/jsb13207/my-golang-app
 
 <h2>1. Building container using Dockerfile</h2>
 <ul>
+    <li>clone this repository. Then cd to docker-golang</li>
     <li>docker build . -t my-golang-app</li>
     <li>docker run -p 3030:3001 my-golang-app:latest | ctrl+c to exit prompt</li>
     <li>docker-compose up</li>
